@@ -1,42 +1,53 @@
 {%extends 'base.html'%}
-{%block title%}Gestion de Cursos{%endblock%}
+{%block title%}Editar Curso{%endblock%}
 {%block body%}
 
 <div class="row">
     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-        <h1>Gestion de Cursos</h1>
+        <h1>Editar Curso</h1>
 
         <div class="card">
             <div class="card-body">
-                <form action="/registrarcurso" method="POST">
+                <form action="/actualizarcurso" method="POST">
                     {%csrf_token%}
                     <div class="form-group mt-2">
-                        <input type="text" class="form-control" name="txtcodigo" placeholder="Codigo">
+                        <label for="txtcodigo">Codigo</label>
+                        <input type="text" name="txtcodigo" class="form-control" value="{{cursoselec.codigo}}" required>
                     </div>
                     <div class="form-group mt-2">
-                        <input type="text" class="form-control" name="txtnombre" placeholder="Nombre">
+                        <label for="txtnombre">Nombre</label>
+                        <input type="text" name="txtnombre" class="form-control" value="{{cursoselec.nombre}}" required>
                     </div>
                     <div class="form-group mt-2">
-                        <input type="text" class="form-control" name="numCreditos" placeholder="1">
+                        <label for="numCreditos">Creditos</label>
+                        <input type="number" name="numCreditos" class="form-control" value="{{cursoselec.creditos}}" required>
                     </div>
                     <div class="form-group mt-2">
-                        <select name="seEspecialidad" class="form-control">
-                            <option value="0">Seleccione Especialidad</option>
+                        <label for="seEspecialidad">Especialidad</label>
+                        <select name="seEspecialidad" class="form-control" required>
                             {%for especialidad in especialidades%}
-                                <option value="{{especialidad.idEspecialidad}}">{{especialidad.nombre}}</option>
+                                {%if especialidad.idEspecialidad == cursoselec.especialidad_id%}
+                                    <option selected="selected" value="{{especialidad.idEspecialidad}}" selected>{{especialidad.nombre}}</option>
+                                {%else%}
+                                    <option value="{{especialidad.idEspecialidad}}">{{especialidad.nombre}}</option>
+                                {%endif%}
                             {%endfor%}
                         </select>
                     </div>
                     <div class="form-group mt-2">
-                        <select name="seDocente" class="form-control">
-                            <option value="0">Seleccione Docente</option>
+                        <label for="seDocente">Docente</label>
+                        <select name="seDocente" class="form-control" required>
                             {%for docente in docentes%}
-                                <option value="{{docente.idDocente}}">{{docente.apellido}} {{docente.nombre}}</option>
+                                {%if docente.idDocente == cursoselec.docente_id%}
+                                    <option selected="selected" value="{{docente.idDocente}}" selected>{{docente.nombre}}</option>
+                                {%else%}
+                                    <option value="{{docente.idDocente}}">{{docente.nombre}}</option>
+                                {%endif%}
                             {%endfor%}
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-success form-control" name="btnGuardar">Guardar</button>
+                        <button type="submit" class="btn btn-success form-control" name="btnEditar">Editar</button>
                     </div>
                 </form>
             </div>
@@ -65,7 +76,7 @@
                             <td>{{curso.especialidad}}</td>
                             <td>{{curso.docente}}</td>
                             <td><a href="{% url 'Academico:editarcurso' curso.codigo %}" class="btn btn-info">Editar</a></td>
-                            <td><a href="eliminarcurso/{{curso.codigo}}" class="btn btn-danger">Eliminar</a></td>
+                            <td><a href="{% url 'Academico:eliminarcurso' curso.codigo %}" class="btn btn-danger">Eliminar</a></td>
                         </tr>
                     {%endfor%}
                 </tbody>

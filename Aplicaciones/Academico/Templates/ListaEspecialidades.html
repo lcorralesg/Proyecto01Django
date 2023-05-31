@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{%block title%}Lista Rapida de Cursos{%endblock%}
+{%block body%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Listado de Cursos</h1>
+            <!--Buscar Curso-->
+            <div class = "row">
+                <div class = "col-md-12">
+                    <form action="/buscarespecialidad" method="post">
+                        {%csrf_token%}
+                        <div class="d-flex justify-content-between align-items-end">
+                            <input type="text" name="especialidadbuscada" class="form-control" placeholder="Buscar por nombre de la Especialidad">
+                            <input type="submit" value="Buscar" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            <div class = "table-respnsive py2 mt-3">
+                <table class="table table-hover table-bordered table-primary">
+                    <thead>
+                        <tr>
+                            <th>idEspecialidad</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for especialidad in especialidades%}
+                        <tr>
+                            <td>{{especialidad.idEspecialidad}}</td>
+                            <td>{{especialidad.nombre}}</td>
+                            <td>{{especialidad.descripcion}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

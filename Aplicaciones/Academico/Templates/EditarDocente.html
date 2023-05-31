@@ -1,0 +1,79 @@
+{%extends 'base.html'%}
+{%block title%}Editar Docente{%endblock%}
+{%block body%}
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h1>Editar Docente</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/actualizardocente" method="POST">
+                    {%csrf_token%}
+                    <input type="hidden" name="txtidDocente" value="{{docenteselec.idDocente}}">
+                    <div class="form-group mt-2">
+                        <label for="txtapellido">Apellido</label>
+                        <input type="text" name="txtapellido" value="{{docenteselec.apellido}}" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="txtnombre">Nombre</label>
+                        <input type="text" name="txtnombre" value="{{docenteselec.nombre}}" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="txtfingreso">Fecha de Ingreso</label>
+                        <input type="date" name="txtfingreso" value="{{ docenteselec.fingreso|date:'Y-m-d' }}" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="txtdni">DNI</label>
+                        <input type="text" name="txtdni" value="{{docenteselec.dni}}" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="txttelefono">Telefono</label>
+                        <input type="text" name="txttelefono" value="{{docenteselec.telefono}}" class="form-control">
+                    </div>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary form-control" name="btnEditar">Editar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Docentes</h1>
+        <div class = "table-respnsive py2">
+            <table class="table table-hover table-bordered table-primary">
+                <thead>
+                    <tr>
+                        <th>IdDocente</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>DNI</th>
+                        <th>Telefono</th>
+                        <th colspan="2">Opciones de Manejo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for docente in docentes%}
+                    <tr>
+                        <td>{{docente.idDocente}}</td>
+                        <td>{{docente.apellido}}</td>
+                        <td>{{docente.nombre}}</td>
+                        <td>{{docente.fingreso}}</td>
+                        <td>{{docente.dni}}</td>
+                        <td>{{docente.telefono}}</td>
+                        <td>
+                            <a href="{%url 'Academico:editardocente' docente.idDocente%}" class="btn btn-info">Editar</a>
+                        </td>
+                        <td>
+                            <a href="{%url 'Academico:eliminardocente' docente.idDocente%}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
