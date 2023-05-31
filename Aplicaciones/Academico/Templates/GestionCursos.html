@@ -1,0 +1,57 @@
+{%extends 'base.html'%}
+{%block title%}Gestion de Cursos{%endblock%}
+{%block body%}
+
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h1>Gestion de Cursos</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarcurso" method="POST">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="txtcodigo" placeholder="Codigo">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="txtnombre" placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="numCreditos" placeholder="1">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success form-control" name="btnGuardar" id="btnGuardar">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Cursos</h1>
+        <div class = "table-respnsive py2">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Creditos</th>
+                        <th colspan="2">Opciones de Manejo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for curso in cursos%}
+                        <tr>
+                            <td>{{curso.codigo}}</td>
+                            <td>{{curso.nombre}}</td>
+                            <td>{{curso.creditos}}</td>
+                            <td><a href="edicioncurso/{{curso.codigo}}" class="btn btn-info">Editar</a></td>
+                            <td><a href="eliminarcurso/{{curso.codigo}}" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    
+{%endblock%}
