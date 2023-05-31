@@ -4,6 +4,8 @@ from .import views
 app_name = 'Academico'
 
 urlpatterns = [
+    path('register', views.register, name='register'),
+    path('login', views.login, name='login'),
     path('', views.home, name='home'),
     path('registrarcurso', views.registrarcurso , name='registrarcurso'),
     path('eliminarcurso/<codigo>', views.eliminarcurso , name='eliminarcurso'),

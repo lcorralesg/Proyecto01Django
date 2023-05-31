@@ -39,9 +39,9 @@
                         <select name="seDocente" class="form-control" required>
                             {%for docente in docentes%}
                                 {%if docente.idDocente == cursoselec.docente_id%}
-                                    <option selected="selected" value="{{docente.idDocente}}" selected>{{docente.nombre}}</option>
+                                    <option selected="selected" value="{{docente.idDocente}}" selected>{{docente.apellido}} {{docente.nombre}}</option>
                                 {%else%}
-                                    <option value="{{docente.idDocente}}">{{docente.nombre}}</option>
+                                    <option value="{{docente.idDocente}}">{{docente.apellido}} {{docente.nombre}}</option>
                                 {%endif%}
                             {%endfor%}
                         </select>
